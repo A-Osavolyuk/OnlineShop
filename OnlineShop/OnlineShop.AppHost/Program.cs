@@ -6,7 +6,7 @@ var sqlServer = builder.AddSqlServerContainer("OnlineShop")
 var cache = builder.AddRedisContainer("Redis");
 
 builder.AddProject<Projects.OnlineShop_ProductApi>("ProductApi")
-    .WithReference(sqlServer)
-    .WithReference(cache);
+    .WithReference(cache)
+    .WithReference(sqlServer);
 
 builder.Build().Run();

@@ -1,4 +1,7 @@
+using FluentValidation;
 using OnlineShop.ProductApi.Data;
+using OnlineShop.ProductApi.Services;
+using OnlineShop.ProductApi.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +11,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.AddSqlServerDbContext<ProductDbContext>("OnlineShop");
+builder.AddSqlServerDbContext<ProductDbContext>("Products");
 builder.AddRedisDistributedCache("Redis");
+
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
