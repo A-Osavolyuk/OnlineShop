@@ -9,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.AddSqlServerDbContext<ProductDbContext>("OnlineShop");
+builder.AddRedisDistributedCache("Redis");
 
 var app = builder.Build();
 
