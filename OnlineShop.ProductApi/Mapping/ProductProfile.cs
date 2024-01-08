@@ -9,6 +9,7 @@ namespace OnlineShop.ProductApi.Mapping
         public ProductProfile()
         {
             CreateMap<ProductDto, ProductEntity>();
+            CreateMap<ProductEntity, ProductDto>();
         }
     }
 }

@@ -37,10 +37,9 @@ namespace OnlineShop.ProductApi.Services
 
             if (validationResult.IsValid)
             {
-                await dbContext.Products.AddAsync(mapper.Map<ProductEntity>(mapper));
+                var product = mapper.Map<ProductEntity>(productDto);
+                await dbContext.Products.AddAsync(product);
                 await dbContext.SaveChangesAsync();
-
-                var product = await dbContext.Products.LastAsync();
 
                 await cache.SetStringAsync($"product-id-{product.ProductId}", JsonConvert.SerializeObject(product),
                     new DistributedCacheEntryOptions() { AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(10) });
@@ -93,9 +92,15 @@ namespace OnlineShop.ProductApi.Services
 
         public async Task<Result<ProductEntity>> GetById(Guid id)
         {
-            var product = JsonConvert.DeserializeObject<ProductEntity>(await cache.GetStringAsync($"product-id-{id}"));
+            var serializerObject = await cache.GetStringAsync($"product-id-{id}");
+            var product = new ProductEntity();
 
-            if (product is null)
+            if (!string.IsNullOrEmpty(serializerObject))
+            {
+                product = JsonConvert.DeserializeObject<ProductEntity>(serializerObject);
+                return product;
+            }
+            else
             {
                 product = dbContext.Products.FirstOrDefault(x => x.ProductId.ToString() == id.ToString());
 
@@ -104,16 +109,14 @@ namespace OnlineShop.ProductApi.Services
 
                 return product;
             }
-
-            return product;
         }
 
         public async Task<Result<ProductEntity>> Update(ProductDto product, Guid id)
         {
             var validationResult = validator.Validate(product);
-            var doesProductExist = await dbContext.Products.FirstOrDefaultAsync(x => x.ProductId == id);
+            var productResult = await dbContext.Products.FirstOrDefaultAsync(x => x.ProductId == id);
 
-            if (doesProductExist is null)
+            if (productResult is null)
             {
                 return new Result<ProductEntity>(new Exception($"Cannot find product with id: {id}"));
             }
@@ -123,15 +126,19 @@ namespace OnlineShop.ProductApi.Services
             }
             else
             {
-                var productEntity = mapper.Map<ProductEntity>(product);
+                productResult.ProductId = id;
+                productResult.ProductName = product.ProductName;
+                productResult.ProductDescription = product.ProductDescription;
+                productResult.Price = product.Price;
+                productResult.Unit = product.Unit;
 
-                dbContext.Products.Update(productEntity);
+                dbContext.Products.Update(productResult);
                 await dbContext.SaveChangesAsync();
 
-                await cache.SetStringAsync($"product-id-{id}", JsonConvert.SerializeObject(product),
+                await cache.SetStringAsync($"product-id-{id}", JsonConvert.SerializeObject(productResult),
                     new DistributedCacheEntryOptions() { AbsoluteExpiration = DateTimeOffset.UtcNow.AddSeconds(10) });
 
-                return new Result<ProductEntity>(productEntity);
+                return new Result<ProductEntity>(productResult);
             }
         }
     }
