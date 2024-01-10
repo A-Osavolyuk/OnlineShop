@@ -5,10 +5,11 @@ var sqlServer = builder.AddSqlServerContainer("OnlineShop")
 
 var cache = builder.AddRedisContainer("Redis");
 
-builder.AddProject<Projects.OnlineShop_ProductApi>("ProductApi")
+var productApi = builder.AddProject<Projects.OnlineShop_ProductApi>("ProductApi")
     .WithReference(cache)
     .WithReference(sqlServer);
 
-builder.AddProject<Projects.OnlineShop_WebUI>("onlineshop.webui");
+builder.AddProject<Projects.OnlineShop_WebUI>("Blazor_WebUI")
+    .WithReference(productApi);
 
 builder.Build().Run();
