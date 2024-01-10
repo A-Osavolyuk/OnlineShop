@@ -13,6 +13,19 @@ builder.Services.AddSwaggerGen();
 
 builder.AddSqlServerDbContext<ProductDbContext>("Products");
 builder.AddRedisDistributedCache("Redis");
+//builder.AddRedisOutputCache("Redis", configuration =>
+//{
+//    configuration.Tracing = true;
+//    configuration.HealthChecks = true;
+//    configuration.ConnectionString = "localhost:6379";
+//},
+//options =>
+//{
+//    options.ConnectRetry = 2;
+//    options.ConnectTimeout = 900_000;
+//});
+
+builder.AddRedisOutputCache("Redis");
 
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
