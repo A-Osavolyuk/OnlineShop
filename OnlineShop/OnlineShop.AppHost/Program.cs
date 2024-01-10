@@ -9,4 +9,6 @@ builder.AddProject<Projects.OnlineShop_ProductApi>("ProductApi")
     .WithReference(cache)
     .WithReference(sqlServer);
 
+builder.AddProject<Projects.OnlineShop_WebUI>("onlineshop.webui");
+
 builder.Build().Run();
