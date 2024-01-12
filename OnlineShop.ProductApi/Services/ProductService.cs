@@ -1,13 +1,10 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using LanguageExt.Common;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using OnlineShop.ProductApi.Data;
 using OnlineShop.ProductApi.Data.Entities;
+using OnlineShop.ProductApi.Mapping;
 using OnlineShop.ProductApi.Models.DTOs;
 using OnlineShop.ProductApi.Services.Interfaces;
 
@@ -17,16 +14,17 @@ namespace OnlineShop.ProductApi.Services
     {
         private readonly ProductDbContext dbContext;
         private readonly IValidator<ProductDto> validator;
-        private readonly IMapper mapper;
+        private readonly ProductMapper productMapper;
 
         public ProductService(
             ProductDbContext dbContext,
-            IValidator<ProductDto> validator,
-            IMapper mapper)
+            IValidator<ProductDto> validator
+        )
         {
             this.dbContext = dbContext;
             this.validator = validator;
-            this.mapper = mapper;
+            productMapper = new ProductMapper();
+
         }
 
         public async Task<Result<ProductEntity>> Create(ProductDto productDto)
@@ -35,7 +33,7 @@ namespace OnlineShop.ProductApi.Services
 
             if (validationResult.IsValid)
             {
-                var product = mapper.Map<ProductEntity>(productDto);
+                var product = productMapper.FromProductDtoToProductEntity(productDto);
                 await dbContext.Products.AddAsync(product);
                 await dbContext.SaveChangesAsync();
 
@@ -94,16 +92,13 @@ namespace OnlineShop.ProductApi.Services
             }
             else
             {
-                productResult.ProductId = id;
-                productResult.ProductName = product.ProductName;
-                productResult.ProductDescription = product.ProductDescription;
-                productResult.Price = product.Price;
-                productResult.Unit = product.Unit;
+                var prod = productMapper.FromProductDtoToProductEntity(product);
+                prod.ProductId = id;
 
-                dbContext.Products.Update(productResult);
+                dbContext.Products.Update(prod);
                 await dbContext.SaveChangesAsync();
 
-                return new Result<ProductEntity>(productResult);
+                return new Result<ProductEntity>(prod);
             }
         }
     }
