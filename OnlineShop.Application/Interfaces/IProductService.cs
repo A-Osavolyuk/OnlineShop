@@ -1,15 +1,13 @@
-﻿using LanguageExt.Common;
-using OnlineShop.Domain.DTOs;
-using OnlineShop.Domain.Entities;
+﻿using OnlineShop.Domain.DTOs;
 
 namespace OnlineShop.Application.Interfaces
 {
     public interface IProductService
     {
-        public Task<Result<IEnumerable<ProductEntity>>> GetAll();
-        public Task<Result<ProductEntity>> GetById(Guid id);
-        public Task<Result<ProductEntity>> Create(ProductDto product);
-        public Task<Result<ProductEntity>> Update(ProductDto product, Guid id);
-        public Task<Result<bool>> Delete(Guid id);
+        public Task<ResponseDto> GetAll();
+        public Task<ResponseDto> GetById(Guid id);
+        public Task<ResponseDto> Create(ProductDto product);
+        public Task<ResponseDto> Update(ProductDto product, Guid id);
+        public Task<ResponseDto> Delete(Guid id);
     }
 }

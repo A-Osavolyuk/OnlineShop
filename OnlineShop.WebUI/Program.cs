@@ -12,6 +12,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddMudServices();
 builder.Services.ConfigureHttpClients();
 builder.Services.ConfigureDependencyInjection();
+builder.Services.AddOptionsConfiguration(builder.Configuration);
 
 var app = builder.Build();
 
