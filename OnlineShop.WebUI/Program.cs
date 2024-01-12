@@ -1,4 +1,5 @@
 using MudBlazor.Services;
+using OnlineShop.Infrastructure;
 using OnlineShop.WebUI.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddMudServices();
+builder.Services.ConfigureHttpClients();
+builder.Services.ConfigureDependencyInjection();
 
 var app = builder.Build();
 
