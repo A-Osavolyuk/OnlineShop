@@ -1,6 +1,7 @@
 ﻿@page "/products/list-of-products"
 
 @inject IProductService ProductService
+@inject NavigationManager NavigationManager
 
 <MudGrid Justify="Justify.Center">
     @if (Products is not null)
@@ -9,7 +10,10 @@
         {
             @foreach (var product in Products)
             {
-                <ProductListItem Product="product"/>
+                <ProductListItem Product="product" 
+                    OnDetailsClick="(() => OnDetailsCLickHandler(product.ProductId))"
+                    OnEditClick="(() => OnEditCLickHandler(product.ProductId))" 
+                    OnDeleteClick="(() => OnDeleteCLickHandler(product.ProductId))"/>
             }
         }
         else
@@ -24,7 +28,7 @@
 </MudGrid>
 
 @code {
-#nullable disable
+    #nullable disable
 
     [Parameter] public IEnumerable<ProductEntity> Products { get; set; } = default!;
 
@@ -36,5 +40,20 @@
         {
             Products = JsonConvert.DeserializeObject<IEnumerable<ProductEntity>>(response.Result.ToString());
         }
+    }
+
+    public void OnEditCLickHandler(Guid id)
+    {
+        NavigationManager.NavigateTo($"/products/{id}/details");
+    }
+
+    public void OnDetailsCLickHandler(Guid id)
+    {
+        NavigationManager.NavigateTo($"/products/{id}/edit");
+    }
+
+    public void OnDeleteCLickHandler(Guid id)
+    {
+        NavigationManager.NavigateTo($"/products/{id}/delete");
     }
 }
