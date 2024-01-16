@@ -17,13 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ServiceDefaults"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.ProductApi", "OnlineShop.ProductApi\OnlineShop.ProductApi.csproj", "{954AED5D-A2B1-4F07-8F4A-45F3AE3BE4F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Domain", "OnlineShop.Domain\OnlineShop.Domain.csproj", "{FE90C799-FBD6-4ED3-AD97-2E4FDC820AC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Domain", "OnlineShop.Domain\OnlineShop.Domain.csproj", "{FE90C799-FBD6-4ED3-AD97-2E4FDC820AC1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.WebUI", "OnlineShop.WebUI\OnlineShop.WebUI.csproj", "{3D98664A-60C2-457F-9CBA-6B37BD003762}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Application", "OnlineShop.Application\OnlineShop.Application.csproj", "{B4EA8ABD-6B9B-4655-883F-0432CF51F161}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Application", "OnlineShop.Application\OnlineShop.Application.csproj", "{B4EA8ABD-6B9B-4655-883F-0432CF51F161}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.Infrastructure", "OnlineShop.Infrastructure\OnlineShop.Infrastructure.csproj", "{E6442933-A020-4D80-85A6-A1AA22555C98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Infrastructure", "OnlineShop.Infrastructure\OnlineShop.Infrastructure.csproj", "{E6442933-A020-4D80-85A6-A1AA22555C98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

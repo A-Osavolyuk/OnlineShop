@@ -24,7 +24,7 @@ namespace OnlineShop.Infrastructure.Services
             return await baseService.SendAsync(new RequestDto()
             {
                 Method = ApiMethods.POST,
-                Url = httpData.ProductApi + "api/products",
+                Url = httpData.ProductApi + "/api/products",
                 Data = product
             });
         }
@@ -34,7 +34,7 @@ namespace OnlineShop.Infrastructure.Services
             return await baseService.SendAsync(new RequestDto()
             {
                 Method = ApiMethods.DELETE,
-                Url = httpData.ProductApi + $"api/products/{id}"
+                Url = httpData.ProductApi + $"/api/products/{id}"
             });
         }
 
@@ -43,7 +43,7 @@ namespace OnlineShop.Infrastructure.Services
             return await baseService.SendAsync(new RequestDto()
             {
                 Method = ApiMethods.GET,
-                Url = httpData.ProductApi + "api/products"
+                Url = httpData.ProductApi + "/api/products"
             });
         }
 
@@ -52,7 +52,7 @@ namespace OnlineShop.Infrastructure.Services
             return await baseService.SendAsync(new RequestDto()
             {
                 Method = ApiMethods.GET,
-                Url = httpData.ProductApi + $"api/products/{id}"
+                Url = httpData.ProductApi + $"/api/products/{id}"
             });
         }
 
@@ -61,7 +61,7 @@ namespace OnlineShop.Infrastructure.Services
             return await baseService.SendAsync(new RequestDto()
             {
                 Method = ApiMethods.PUT,
-                Url = httpData.ProductApi + $"api/products/{id}",
+                Url = httpData.ProductApi + $"/api/products/{id}",
                 Data = product
             });
         }

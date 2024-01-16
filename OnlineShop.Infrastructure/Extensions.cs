@@ -11,11 +11,13 @@ namespace OnlineShop.Infrastructure
         public static void ConfigureDependencyInjection(this IServiceCollection services)
         {
             services.AddScoped<IBaseService, BaseService>();
+            services.AddScoped<IProductService ,ProductService>();
         }
 
         public static void ConfigureHttpClients(this IServiceCollection services)
         {
             services.AddHttpClient();
+            services.AddHttpClient<IProductService, ProductService>();
         }
 
         public static void AddOptionsConfiguration(this IServiceCollection services, IConfiguration configuration) 

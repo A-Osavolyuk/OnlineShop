@@ -9,11 +9,11 @@ namespace OnlineShop.ProductApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly IProductService productService;
 
-        public ProductController(
+        public ProductsController(
             IProductService productService)
         {
             this.productService = productService;

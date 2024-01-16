@@ -16,10 +16,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="MudBlazor" Version="6.12.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Components\Pages\Products\" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

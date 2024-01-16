@@ -1,0 +1,40 @@
+﻿@page "/products/list-of-products"
+
+@inject IProductService ProductService
+
+<MudGrid Justify="Justify.Center">
+    @if (Products is not null)
+    {
+        @if (Products.Any())
+        {
+            @foreach (var product in Products)
+            {
+                <ProductListItem Product="product"/>
+            }
+        }
+        else
+        {
+            <EmptyList/>
+        }
+    }
+    else
+    {
+        <NullList/>
+    }
+</MudGrid>
+
+@code {
+#nullable disable
+
+    [Parameter] public IEnumerable<ProductEntity> Products { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await ProductService.GetAll();
+
+        if (response.IsSucceeded)
+        {
+            Products = JsonConvert.DeserializeObject<IEnumerable<ProductEntity>>(response.Result.ToString());
+        }
+    }
+}

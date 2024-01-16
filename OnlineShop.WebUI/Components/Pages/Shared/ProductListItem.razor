@@ -1,0 +1,32 @@
+﻿<MudItem xs="4">
+
+    <MudPaper Outlined Class="pa-1 mb-1">
+        <MudText >Product ID: @Product.ProductId</MudText>
+        <MudText >Product Name: @Product.ProductName</MudText>
+        <MudText >Product Description: @Product.ProductDescription</MudText>
+        <MudText>Price: @Product.Price $(USD)</MudText>
+    </MudPaper>
+
+    <MudPaper Outlined Class="pa-1">
+        <MudButton Color="Color.Info" ButtonType="ButtonType.Button" Variant="Variant.Filled"
+                   EndIcon="@Icons.Material.Filled.Info" OnClick="OnDetailsClick">
+            Details
+        </MudButton>
+        <MudButton Color="Color.Primary" ButtonType="ButtonType.Button" Variant="Variant.Filled"
+                   EndIcon="@Icons.Material.Filled.Edit" OnClick="OnEditClick">
+            Edit
+        </MudButton>
+        <MudButton Color="Color.Error" ButtonType="ButtonType.Button" Variant="Variant.Filled"
+                   EndIcon="@Icons.Material.Filled.Delete" OnClick="OnDeleteClick">
+            Delete
+        </MudButton>
+    </MudPaper>
+
+</MudItem>
+
+@code {
+    [Parameter] public ProductEntity Product { get; set; } = new();
+    [Parameter] public EventCallback OnEditClick { get; set; }
+    [Parameter] public EventCallback OnDeleteClick { get; set; }
+    [Parameter] public EventCallback OnDetailsClick { get; set; }
+}
