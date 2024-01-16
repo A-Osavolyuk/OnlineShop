@@ -1,6 +1,8 @@
 using MudBlazor.Services;
 using OnlineShop.Infrastructure;
 using OnlineShop.WebUI.Components;
+using FluentValidation;
+using OnlineShop.Infrastructure.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddMudServices();
 builder.Services.ConfigureHttpClients();
 builder.Services.ConfigureDependencyInjection();
 builder.Services.AddOptionsConfiguration(builder.Configuration);
+builder.Services.AddValidatorsFromAssemblyContaining<ProductDtoValidator>();
 
 var app = builder.Build();
 

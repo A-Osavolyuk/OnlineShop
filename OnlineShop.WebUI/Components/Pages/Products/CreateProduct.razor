@@ -1,0 +1,49 @@
+﻿@page "/products/create"
+
+@inject NavigationManager NavigationManager
+@inject IProductService ProductService
+@inject IValidator<ProductDto> Validator
+
+<MudGrid Justify="Justify.Center">
+    <MudItem xs="6">
+        <EditForm Model="ProductDtoModel" OnValidSubmit="OnValidSubmit">
+            <FluentValidationValidator Validator="Validator"/>
+            
+            <MudPaper Outlined Class="pa-3">
+                <MudText Typo="Typo.h5" Align="Align.Center">Create Product</MudText>
+                <MudTextField For="(() => ProductDtoModel.ProductName)" @bind-value="ProductDtoModel.ProductName" 
+                    Label="Product Name" Immediate Variant="Variant.Outlined" />
+                <MudTextField For="(() => ProductDtoModel.ProductDescription)" @bind-value="ProductDtoModel.ProductDescription"
+                              Label="Units" Lines="4" Immediate Variant="Variant.Outlined" Clearable />
+                <MudTextField For="(() => ProductDtoModel.Unit)" @bind-value="ProductDtoModel.Unit"
+                              Label="Product Name" Immediate Variant="Variant.Outlined" />
+                <MudNumericField For="(() => ProductDtoModel.Price)" @bind-value="ProductDtoModel.Price"
+                              Label="Product Price" Immediate Variant="Variant.Outlined" Format="F1" />
+
+                <MudSpacer />
+                <MudGrid Justify="Justify.Center">
+                    <MudItem xs="6" Class="mt-3">
+                        <MudButton Color="Color.Success" ButtonType="ButtonType.Submit" Variant="Variant.Filled"
+                                   EndIcon="@Icons.Material.Filled.Create" FullWidth>
+                            Create
+                        </MudButton>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        </EditForm>
+    </MudItem>
+</MudGrid>
+
+@code {
+    [Parameter] public ProductDto ProductDtoModel { get; set; } = new();
+
+    private async Task OnValidSubmit()
+    {
+        var result = await ProductService.Create(ProductDtoModel);
+
+        if (result.IsSucceeded)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+    }
+}
