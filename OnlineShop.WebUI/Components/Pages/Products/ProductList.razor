@@ -62,8 +62,12 @@
             ToastService.ShowSuccess("Product has been deleted.");
 
             var newList = await ProductService.GetAll();
-            Products = JsonConvert.DeserializeObject<IEnumerable<ProductEntity>>(newList.Result.ToString());
-            StateHasChanged();
+
+            if (newList.IsSucceeded)
+            {
+                Products = JsonConvert.DeserializeObject<IEnumerable<ProductEntity>>(newList.Result.ToString());
+                StateHasChanged();
+            }
 
         }
         else
