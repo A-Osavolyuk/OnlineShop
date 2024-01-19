@@ -2,22 +2,23 @@
 
 @inject NavigationManager NavigationManager
 @inject IProductService ProductService
+@inject IToastService ToastService
 @inject IValidator<ProductDto> Validator
 
 <MudGrid Justify="Justify.Center">
     <MudItem xs="6">
-        <EditForm Model="ProductDtoModel" OnValidSubmit="OnValidSubmit">
+        <EditForm Model="ProductModel" OnValidSubmit="OnValidSubmit">
             <FluentValidationValidator Validator="Validator"/>
             
             <MudPaper Outlined Class="pa-3">
                 <MudText Typo="Typo.h5" Align="Align.Center">Create Product</MudText>
-                <MudTextField For="(() => ProductDtoModel.ProductName)" @bind-value="ProductDtoModel.ProductName" 
+                <MudTextField For="(() => ProductModel.ProductName)" @bind-value="ProductModel.ProductName" 
                     Label="Product Name" Immediate Variant="Variant.Outlined" />
-                <MudTextField For="(() => ProductDtoModel.ProductDescription)" @bind-value="ProductDtoModel.ProductDescription"
+                <MudTextField For="(() => ProductModel.ProductDescription)" @bind-value="ProductModel.ProductDescription"
                               Label="Units" Lines="4" Immediate Variant="Variant.Outlined" Clearable />
-                <MudTextField For="(() => ProductDtoModel.Unit)" @bind-value="ProductDtoModel.Unit"
+                <MudTextField For="(() => ProductModel.Unit)" @bind-value="ProductModel.Unit"
                               Label="Product Name" Immediate Variant="Variant.Outlined" />
-                <MudNumericField For="(() => ProductDtoModel.Price)" @bind-value="ProductDtoModel.Price"
+                <MudNumericField For="(() => ProductModel.Price)" @bind-value="ProductModel.Price"
                               Label="Product Price" Immediate Variant="Variant.Outlined" Format="F1" />
 
                 <MudSpacer />
@@ -35,15 +36,18 @@
 </MudGrid>
 
 @code {
-    [Parameter] public ProductDto ProductDtoModel { get; set; } = new();
+    [Parameter] public ProductDto ProductModel { get; set; } = new();
 
     private async Task OnValidSubmit()
     {
-        var result = await ProductService.Create(ProductDtoModel);
+        var result = await ProductService.Create(ProductModel);
 
         if (result.IsSucceeded)
         {
-            NavigationManager.NavigateTo("/");
+            ToastService.ShowSuccess("Product has been create.");
+            NavigationManager.NavigateTo("/products/list-of-products");
         }
+        else 
+            ToastService.ShowError(result.Message);
     }
 }

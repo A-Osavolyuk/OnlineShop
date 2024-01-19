@@ -1,0 +1,68 @@
+﻿@page "/products/{Id}/edit"
+
+
+@inject IProductService ProductService
+@inject NavigationManager NavigationManager
+@inject IValidator<ProductDto> Validator
+@inject IToastService ToastService
+
+<MudGrid Justify="Justify.Center">
+    <MudItem xs="6">
+        <EditForm Model="ProductModel" OnValidSubmit="OnValidSubmit">
+            <FluentValidationValidator Validator="Validator" />
+
+            <MudPaper Outlined Class="pa-3">
+                <MudText Typo="Typo.h5" Align="Align.Center">Edit Product</MudText>
+                <MudTextField @bind-Value="Id" Disabled Label="Product Id" Variant="Variant.Outlined" />
+                <MudTextField For="(() => ProductModel.ProductName)" @bind-Value="ProductModel.ProductName"
+                              Label="Product Name" Immediate Variant="Variant.Outlined"  />
+                <MudTextField For="(() => ProductModel.ProductDescription)" @bind-Value="ProductModel.ProductDescription"
+                              Label="Units" Lines="4" Immediate Variant="Variant.Outlined" Clearable />
+                <MudTextField For="(() => ProductModel.Unit)" @bind-Value="ProductModel.Unit"
+                              Label="Product Name" Immediate Variant="Variant.Outlined" />
+                <MudNumericField For="(() => ProductModel.Price)" @bind-Value="ProductModel.Price"
+                                 Label="Product Price" Immediate Variant="Variant.Outlined" Format="F1" />
+
+                <MudSpacer />
+                <MudGrid Justify="Justify.Center">
+                    <MudItem xs="6" Class="mt-3">
+                        <MudButton Color="Color.Success" ButtonType="ButtonType.Submit" Variant="Variant.Filled"
+                                   EndIcon="@Icons.Material.Filled.Edit" FullWidth>
+                            Update
+                        </MudButton>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+        </EditForm>
+    </MudItem>
+</MudGrid>
+
+@code {
+    #nullable disable
+
+    [Parameter] public string Id { get; set; }
+    [Parameter] public ProductDto ProductModel { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await ProductService.GetById(Guid.Parse(Id));
+
+        if (result.IsSucceeded)
+        {
+            ProductModel = JsonConvert.DeserializeObject<ProductDto>(result.Result.ToString());
+        }
+    }
+
+    private async Task OnValidSubmit()
+    {
+        var result = await ProductService.Update(ProductModel, Guid.Parse(Id));
+
+        if (result.IsSucceeded)
+        {
+            ToastService.ShowSuccess("Product has been updated.");
+            NavigationManager.NavigateTo("/products/list-of-products");
+        }
+        else 
+            ToastService.ShowError(result.Message);
+    }
+}

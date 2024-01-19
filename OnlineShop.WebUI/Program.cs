@@ -1,3 +1,4 @@
+using Blazored.Toast;
 using MudBlazor.Services;
 using OnlineShop.Infrastructure;
 using OnlineShop.WebUI.Components;
@@ -10,6 +11,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddMudServices();
+builder.Services.AddBlazoredToast();
 builder.Services.ConfigureHttpClients();
 builder.Services.ConfigureDependencyInjection();
 builder.Services.ConfigureValidation();

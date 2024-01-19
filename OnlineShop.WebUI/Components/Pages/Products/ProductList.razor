@@ -44,12 +44,12 @@
 
     public void OnEditCLickHandler(Guid id)
     {
-        NavigationManager.NavigateTo($"/products/{id}/details");
+        NavigationManager.NavigateTo($"/products/{id}/edit");
     }
 
     public void OnDetailsCLickHandler(Guid id)
     {
-        NavigationManager.NavigateTo($"/products/{id}/edit");
+        NavigationManager.NavigateTo($"/products/{id}/details");
     }
 
     public void OnDeleteCLickHandler(Guid id)

@@ -22,6 +22,9 @@
         </MudContainer>
     </MudMainContent>
 </MudLayout>
+
+<BlazoredToasts Position="ToastPosition.BottomRight" Timeout="10" SuccessClass="success-toast-override"
+                    SuccessIcon="fa fa-check" ErrorIcon="fa fa-times" InfoIcon="fa fa-info" WarningIcon="fa fa-warning"/>
 @code {
     bool _drawerOpen = true;
 
