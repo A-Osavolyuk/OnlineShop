@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Application", "O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Infrastructure", "OnlineShop.Infrastructure\OnlineShop.Infrastructure.csproj", "{E6442933-A020-4D80-85A6-A1AA22555C98}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.CouponApi", "OnlineShop.CouponApi\OnlineShop.CouponApi.csproj", "{CCAA05BE-FB39-4EF7-AAEB-B71774829C32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{E6442933-A020-4D80-85A6-A1AA22555C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6442933-A020-4D80-85A6-A1AA22555C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6442933-A020-4D80-85A6-A1AA22555C98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCAA05BE-FB39-4EF7-AAEB-B71774829C32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCAA05BE-FB39-4EF7-AAEB-B71774829C32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCAA05BE-FB39-4EF7-AAEB-B71774829C32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCAA05BE-FB39-4EF7-AAEB-B71774829C32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{3D98664A-60C2-457F-9CBA-6B37BD003762} = {A7CBE3D1-9396-486C-9E25-50550AF02DFD}
 		{B4EA8ABD-6B9B-4655-883F-0432CF51F161} = {A7CBE3D1-9396-486C-9E25-50550AF02DFD}
 		{E6442933-A020-4D80-85A6-A1AA22555C98} = {A7CBE3D1-9396-486C-9E25-50550AF02DFD}
+		{CCAA05BE-FB39-4EF7-AAEB-B71774829C32} = {5A16A8A9-39FE-4E86-B9F0-2BA16416EA45}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E42460A0-EB53-463F-8F34-C45903FD03B3}

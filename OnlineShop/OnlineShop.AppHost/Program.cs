@@ -12,4 +12,6 @@ var productApi = builder.AddProject<Projects.OnlineShop_ProductApi>("ProductApi"
 builder.AddProject<Projects.OnlineShop_WebUI>("Blazor_WebUI")
     .WithReference(productApi);
 
+builder.AddProject<Projects.OnlineShop_CouponApi>("onlineshop.couponapi");
+
 builder.Build().Run();
