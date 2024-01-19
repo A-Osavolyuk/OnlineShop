@@ -2,6 +2,7 @@
 
 @inject IProductService ProductService
 @inject NavigationManager NavigationManager
+@inject IToastService ToastService
 
 <MudGrid Justify="Justify.Center">
     @if (Products is not null)
@@ -52,8 +53,20 @@
         NavigationManager.NavigateTo($"/products/{id}/details");
     }
 
-    public void OnDeleteCLickHandler(Guid id)
+    public async void OnDeleteCLickHandler(Guid id)
     {
-        NavigationManager.NavigateTo($"/products/{id}/delete");
+        var result = await ProductService.Delete(id);
+
+        if (result.IsSucceeded)
+        {
+            ToastService.ShowSuccess("Product has been deleted.");
+
+            var newList = await ProductService.GetAll();
+            Products = JsonConvert.DeserializeObject<IEnumerable<ProductEntity>>(newList.Result.ToString());
+            StateHasChanged();
+
+        }
+        else
+            ToastService.ShowError(result.Message);
     }
 }
